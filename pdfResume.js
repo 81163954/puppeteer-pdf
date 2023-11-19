@@ -6,21 +6,22 @@ const pdfResume = async (req, res) => {
     const body = req.body
 
     const browser = await puppeteer.launch({
-        args: ['--no-sandbox'],
+        args: ['--disable-setuid-sandbox', '--no-sandbox'],
         headless: 'new',
     });
     try {
         // 创建一个新页面
         const page = await browser.newPage();
 
+        // await page.goto(`https://app.pyroxcv.cn/login`);
         const cookies = [
             {
                 ...body.csrfToken,
-                // url: 'http://'+body.csrfToken.domain+ `/editor/${resumeId}/view`
+                domain: 'localhost:80'
             },
             {
                 ...body.sessionToken,
-                // url: 'http://'+body.sessionToken.domain+ `/editor/${resumeId}/view`
+                domain: 'localhost:80'
             }
         ]
 
@@ -28,6 +29,7 @@ const pdfResume = async (req, res) => {
         // const cookie2 = body.sessionToken
 
         console.log(cookies);
+        console.log(resumeId);
 
         // const client = await page.target().createCDPSession();
         // await client.send('Network.clearBrowserCookies'); // 清除所有浏览器 cookie
@@ -43,7 +45,7 @@ const pdfResume = async (req, res) => {
 
         // await page.goto(`http://localhost:3000/editor/${resumeId}/view`);
 
-        await page.goto(`https://app.pyroxcv.cn/editor/${resumeId}/view`);
+        await page.goto(`http://localhost:80/editor/${resumeId}/view`);
 
         // 等待页面加载完全
         await page.waitForSelector('#print-page');
