@@ -54,6 +54,7 @@ const pdfResume = async (req, res) => {
     // await page.goto(API.resumeApp + `/editor/${resumeId}/view`);
 
     // await page.goto(`http://localhost:3000/editor/${resumeId}/view`);
+    await page.emulateMediaType("screen");
 
     await page.goto(`http://${domain}/editor/${resumeId}/view`);
 
@@ -81,25 +82,6 @@ const pdfResume = async (req, res) => {
         br.style.display = "none"; // 设置样式为 display: none
       });
     });
-
-    // 在浏览器上下文中执行
-    const dimensions = await page.evaluate(() => {
-      return {
-        width: window.innerWidth,
-        height: window.innerHeight,
-      };
-    });
-    console.log("dimensions", dimensions);
-
-    await page.setViewport({ width: 1280, height: 800 });
-
-    dimensions = await page.evaluate(() => {
-      return {
-        width: window.innerWidth,
-        height: window.innerHeight,
-      };
-    });
-    console.log("dimensions", dimensions);
 
     // 将元素保存为PDF
     const pdfData = await page.pdf({
