@@ -1,6 +1,14 @@
 const puppeteer = require("puppeteer");
 const { API } = require("./api");
 
+const domain = (() => {
+  let domain = "localhost:3000";
+  if ((process.env.NODE_ENV = "production")) {
+    domain = "localhost:80";
+  }
+  return domain;
+})();
+
 const pdfResume = async (req, res) => {
   const resumeId = req.params.id;
   const body = req.body;
@@ -17,11 +25,11 @@ const pdfResume = async (req, res) => {
     const cookies = [
       {
         ...body.csrfToken,
-        domain: "localhost:3000",
+        domain: domain,
       },
       {
         ...body.sessionToken,
-        domain: "localhost:3000",
+        domain: domain,
       },
     ];
 
@@ -45,7 +53,7 @@ const pdfResume = async (req, res) => {
 
     // await page.goto(`http://localhost:3000/editor/${resumeId}/view`);
 
-    await page.goto(`http://localhost:3000/editor/${resumeId}/view`);
+    await page.goto(`http://${domain}/editor/${resumeId}/view`);
 
     // 等待页面加载完全
     await page.waitForSelector("#print-page");
