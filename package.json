@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node index",
-    "start": "set process.env.NODE_ENV = production && node index"
+    "start": "NODE_ENV=production node index"
   },
   "keywords": [],
   "author": "",
