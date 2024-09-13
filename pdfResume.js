@@ -82,6 +82,25 @@ const pdfResume = async (req, res) => {
       });
     });
 
+    // 在浏览器上下文中执行
+    const dimensions = await page.evaluate(() => {
+      return {
+        width: window.innerWidth,
+        height: window.innerHeight,
+      };
+    });
+    console.log("dimensions", dimensions);
+
+    await page.setViewport({ width: 1280, height: 800 });
+
+    dimensions = await page.evaluate(() => {
+      return {
+        width: window.innerWidth,
+        height: window.innerHeight,
+      };
+    });
+    console.log("dimensions", dimensions);
+
     // 将元素保存为PDF
     const pdfData = await page.pdf({
       // format: "A4",
