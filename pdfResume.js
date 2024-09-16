@@ -48,7 +48,8 @@ const pdfResume = async (req, res) => {
       await page.setCookie(cookie);
     }
 
-    await page.waitForFunction('document.readyState === "complete"');
+    // 等待页面上的所有字体加载完毕
+    await page.waitForFunction('document.fonts.status === "loaded"');
 
     await page.setViewport({
       width: 1280, // 与生产环境的宽度匹配
