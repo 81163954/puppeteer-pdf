@@ -84,11 +84,11 @@ const pdfResume = async (req, res) => {
 
     // 将元素保存为PDF
     const pdfData = await page.pdf({
-      // format: "A4",
+      format: "A4",
       scale: 0.99,
       // 3/4
-      width: "8.025in", // 手动设置宽度
-      height: "10.7in", //底部有点短
+      // width: "8.025in", // 手动设置宽度
+      // height: "10.7in", //底部有点短
       printBackground: true,
     });
 
