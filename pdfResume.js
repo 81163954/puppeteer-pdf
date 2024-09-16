@@ -58,6 +58,8 @@ const pdfResume = async (req, res) => {
     // 等待页面加载完全
     await page.waitForSelector("#print-page");
 
+    await page.emulateMediaType("screen");
+
     let printContentHTML = await page.evaluate(() => {
       const printElement = document.getElementById("print-page");
       if (printElement) {
