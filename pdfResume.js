@@ -1,5 +1,4 @@
-const puppeteer = require("puppeteer");
-const { API } = require("./api");
+import puppeteer from "puppeteer";
 
 const domain = (() => {
   let domain = "localhost:3000";
@@ -11,14 +10,15 @@ const domain = (() => {
   return domain;
 })();
 
+const browser = await puppeteer.launch({
+  args: ["--disable-setuid-sandbox", "--no-sandbox"],
+  headless: "new",
+});
+
 const pdfResume = async (req, res) => {
   const resumeId = req.params.id;
   const body = req.body;
 
-  const browser = await puppeteer.launch({
-    args: ["--disable-setuid-sandbox", "--no-sandbox"],
-    headless: "new",
-  });
   try {
     // 创建一个新页面
     const page = await browser.newPage();
@@ -104,4 +104,4 @@ const pdfResume = async (req, res) => {
   }
 };
 
-module.exports = { pdfResume };
+export { pdfResume };

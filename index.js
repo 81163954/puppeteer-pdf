@@ -1,6 +1,7 @@
-const express = require("express");
-const cors = require("cors");
-const { pdfResume } = require("./pdfResume");
+import express from "express";
+import cors from "cors";
+import { pdfResume } from "./pdfResume.js";
+
 const app = express();
 
 app.use(
