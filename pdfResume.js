@@ -10,16 +10,15 @@ const domain = (() => {
   return domain;
 })();
 
-const browser = await puppeteer.launch({
-  args: ["--disable-setuid-sandbox", "--no-sandbox"],
-  headless: "new",
-});
-
 const pdfResume = async (req, res) => {
   const resumeId = req.params.id;
   const body = req.body;
 
   try {
+    const browser = await puppeteer.launch({
+      args: ["--disable-setuid-sandbox", "--no-sandbox"],
+      headless: "new",
+    });
     // 创建一个新页面
     const page = await browser.newPage();
 
@@ -54,7 +53,6 @@ const pdfResume = async (req, res) => {
     // await page.goto(API.resumeApp + `/editor/${resumeId}/view`);
 
     // await page.goto(`http://localhost:3000/editor/${resumeId}/view`);
-    await page.emulateMediaType("screen");
 
     await page.goto(`http://${domain}/editor/${resumeId}/view`);
 
