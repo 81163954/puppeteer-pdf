@@ -60,6 +60,8 @@ const pdfResume = async (req, res) => {
 
     await page.emulateMediaType("print");
 
+    await page.screenshot({ path: "screenshot.png", fullPage: true });
+
     let printContentHTML = await page.evaluate(() => {
       const printElement = document.getElementById("print-page");
       if (printElement) {
@@ -74,6 +76,8 @@ const pdfResume = async (req, res) => {
         document.body.innerHTML = content;
       }, printContentHTML);
 
+    await page.screenshot({ path: "screenshot2.png", fullPage: true });
+
     //[.page-br elements] display none
     await page.evaluate(() => {
       const brTags = document.querySelectorAll(".page-br"); // 获取所有的 <br> 标签
@@ -81,6 +85,8 @@ const pdfResume = async (req, res) => {
         br.style.display = "none"; // 设置样式为 display: none
       });
     });
+
+    await page.screenshot({ path: "screenshot3.png", fullPage: true });
 
     // 将元素保存为PDF
     const pdfData = await page.pdf({
