@@ -13,12 +13,11 @@ const domain = (() => {
 const pdfResume = async (req, res) => {
   const resumeId = req.params.id;
   const body = req.body;
-
+  const browser = await puppeteer.launch({
+    args: ["--disable-setuid-sandbox", "--no-sandbox"],
+    headless: "new",
+  });
   try {
-    const browser = await puppeteer.launch({
-      args: ["--disable-setuid-sandbox", "--no-sandbox"],
-      headless: "new",
-    });
     // 创建一个新页面
     const page = await browser.newPage();
 
