@@ -71,10 +71,13 @@ const pdfResume = async (req, res) => {
       }
     });
 
-    if (printContentHTML)
+    if (printContentHTML) {
+      console.log("printContentHTML", printContentHTML);
+
       await page.evaluate((content) => {
         document.body.innerHTML = content;
       }, printContentHTML);
+    }
 
     await page.screenshot({ path: "screenshot2.png", fullPage: true });
 
