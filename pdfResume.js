@@ -48,6 +48,14 @@ const pdfResume = async (req, res) => {
       await page.setCookie(cookie);
     }
 
+    await page.waitForFunction('document.readyState === "complete"');
+
+    await page.setViewport({
+      width: 1280, // 与生产环境的宽度匹配
+      height: 720, // 与生产环境的高度匹配
+      deviceScaleFactor: 1, // 调整缩放比例
+    });
+
     // 访问您要生成PDF的页面或元素
     // await page.goto(API.resumeApp + `/editor/${resumeId}/view`);
 
